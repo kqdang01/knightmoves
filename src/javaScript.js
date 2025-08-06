@@ -24,9 +24,9 @@ function getNeighbors(row, col) {
 
         const neighborRow = row + rowChange;
         const neighborCol = col + colChange;
-
         neighbors.push([neighborRow, neighborCol]);
     }
+    
     return neighbors;
 }
 
@@ -40,22 +40,25 @@ function moveKnight(targetRow, targetCol) {
 
     while (queue.length > 0) {
         const node = queue.shift();
-        const {row, col, distanceFromOrigin} = node;
+        const {x, y, distanceFromOrigin} = node;
         
-        if (row === targetRow && col === targetCol) {
+        if (x === targetRow && y === targetCol) {
             console.log(distanceFromOrigin);
+            console.log(visited);
             return distanceFromOrigin;
         }
         visited.add(node.getStringPosition());
+        console.log(visited);
 
-        for (const neighbor of getNeighbors(row, col)) {
+        for (const neighbor of getNeighbors(x, y)) {
             const [neighborRow, neighborCol] = neighbor;
             const neighborNode = new Node(neighborRow, neighborCol, distanceFromOrigin + 1);
-
             if (visited.has(neighborNode.getStringPosition())) continue;
 
             queue.push(neighborNode);
         }
+        console.log(queue);
+        
     }
 }
-moveKnight(90, 90);
+moveKnight(2, 2);
